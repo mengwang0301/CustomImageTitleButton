@@ -43,6 +43,12 @@ class CustomImageTitleButton: UIButton {
         super.init(coder: aDecoder)
     }
     
+    override func updateConstraints() {
+        resetEdgeInsets(type: type)
+        
+        super.updateConstraints()
+    }
+    
     /// 重置edgeinsets
     ///
     /// - Parameters:
@@ -56,7 +62,7 @@ class CustomImageTitleButton: UIButton {
         var labelWidth = self.titleLabel!.frame.width
         var labelHeight = self.titleLabel!.frame.height
         
-        assert((imageWidth + labelHeight) > self.frame.width && (imageHeight + labelHeight) > self.frame.height, "button frame过小")
+//        assert((imageWidth + labelWidth) > self.frame.width && (imageHeight + labelHeight) > self.frame.height, "button frame过小")
         
         if #available(iOS 8.0, *) {
             //高于 iOS 8.0
