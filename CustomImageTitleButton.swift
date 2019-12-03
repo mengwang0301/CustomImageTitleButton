@@ -17,13 +17,11 @@ enum imageTitleType: Int {
 }
 
 class CustomImageTitleButton: UIButton {
- 
-    /// 只需要修改type而不需要修改space时, 可直接set此属性, 会默认把space置为0
-    var type: imageTitleType = .leftImageRightTitle {
-        didSet {
-            resetEdgeInsets(type: type)
-        }
-    }
+    /// 文字图片显示位置类型
+    private var type: imageTitleType = .leftImageRightTitle
+    
+    /// 文字图片间距
+    private var space: CGFloat = 0.0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,7 +42,7 @@ class CustomImageTitleButton: UIButton {
     }
     
     override func updateConstraints() {
-        resetEdgeInsets(type: type)
+        resetEdgeInsets(type: type, space: space)
         
         super.updateConstraints()
     }
@@ -52,9 +50,11 @@ class CustomImageTitleButton: UIButton {
     /// 重置edgeinsets
     ///
     /// - Parameters:
-    ///   - type: 图片文字位置类型
-    ///   - space: 图片文字间距
-    func resetEdgeInsets(type: imageTitleType, space: CGFloat = 0.0) {
+    ///   - type: 图片文字位置类型, 默认左图片右文字
+    ///   - space: 图片文字间距, 默认间距为0
+    func resetEdgeInsets(type: imageTitleType = .leftImageRightTitle, space: CGFloat = 0.0) {
+        self.type = type
+        self.space = space
         
         let imageWidth = self.imageView!.frame.width
         let imageHeight = self.imageView!.frame.height
